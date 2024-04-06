@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+   <label for="fnumber">First Number:</label><input type="number" id="fnumber" min="0" max="100">
+
+   <select id="MathValues">
+    <option class="typebtn" value="+">+</option>
+    <option class="typebtn" value="-">-</option>
+    <option class="typebtn" value="*">*</option>
+    <option class="typebtn" value="/">/</option>
+   </select>
+
+   <label for="snumber">Secound Number: </label><input type="number" id="snumber" min="0" max="100">
+
+   
+
+
+    <button class="enter" value="=" onclick="calculate()">=</button>
+
+
+   <div id="outputText"></div>
+
+    <script src="calculator.js"></script>
+  </body>
+</html>
