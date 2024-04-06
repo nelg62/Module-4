@@ -39,8 +39,8 @@
         { name: "alice", age: 39 },
       ];
 
-      function addCard(content) {
-        content.forEach((element) => {
+      function addCard(element) {
+
           // clone the template
           const template = document
             .getElementById("card-template")
@@ -58,10 +58,11 @@
 
           // include the populated template into the page
           document.querySelector("#card-list").appendChild(template);
-        });
+      
       }
 
-      addCard(data);
+      data.forEach(data=>addCard(data))
+      // addCard(data);
     </script> -->
 
     <script>
@@ -81,23 +82,25 @@
         ],
       };
 
-      function addCard(content) {
-        content.portfolio.forEach(element => {
-          console.log(element)
+      function addCard(element) {
+        // content.portfolio.forEach(element => {
+        //   console.log(element)
         
         // clone the template
         const template = document
           .getElementById("card-template")
           .content.cloneNode(true);
         // populate the template
-        template.querySelector(".card-title").innerText = `Artist ${content.name}`;
+        template.querySelector(".card-title").innerText = `Artist ${artist.name}`;
         template.querySelector(".card-text").innerText = `portfolio: ${element.title}-${element.url}`;
         template.querySelector(".card-img").src = element.url
         // include the populated template into the page
         document.querySelector("#card-list").appendChild(template);
-      });
+      // });
       }
-      addCard(artist);
+   artist.portfolio.forEach(element => addCard(element))
+  //  console.log(arrayartis)
+    //   addCard(artist);
     </script>
   </body>
 </html>
