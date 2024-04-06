@@ -23,3 +23,10 @@ function calculate() {
       break;
   }
 }
+
+
+function resetbtn() {
+    document.getElementById("fnumber").value = ""
+    document.getElementById("snumber").value = ""
+    OutputText.innerHTML = ""
+}
