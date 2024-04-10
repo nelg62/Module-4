@@ -12,7 +12,9 @@
 
 <body>
 
+  <!-- outer div containing everything to center all things -->
   <div class="container text-center">
+
     <!-- Form -->
     <form id="fillForm" class="mt-5">
       <!-- First Name input -->
@@ -46,17 +48,28 @@
       <input type="submit" id="subBtn" class="mt-2" />
     </form>
 
+
+    <!-- template for form data -->
     <template id="list-template">
       <div class="listitem mt-2 list-group col">
+        <!-- id div -->
         <div class="li-num list-group-item"></div>
+        <!-- first name div -->
         <div class="li-fname list-group-item"></div>
+        <!-- last name div -->
         <div class="li-lname list-group-item"></div>
+        <!-- animal div -->
         <div class="li-animal list-group-item"></div>
+        <!-- food div -->
         <div class="li-food list-group-item"></div>
-        <button onclick="removecurrentitem(this)">Remove</button>
-        <button onclick="getvalue(this)">Edit</button>
+        <!-- remove button -->
+        <button id="removeBtn" onclick="removecurrentitem(this)">Remove</button>
+        <!-- edit button -->
+        <button id="editBtn" onclick="getvalue(this)">Edit</button>
       </div>
     </template>
+
+    <!-- div were template adds items to after submit button has been clicked on form -->
     <div id="addItems" class="mt-2 row row-cols-4"></div>
   </div>
 
