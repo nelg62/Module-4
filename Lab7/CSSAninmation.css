@@ -1,0 +1,20 @@
+#movingSquare {
+    border: 1px solid;
+    height: 30px;
+    width: 30px;
+    background-color: aqua;
+    animation-name: slidein;
+    animation-duration: 3s;
+    position: relative;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    
+}
+    @keyframes slidein {
+        from { top: 0px;}
+        30% {background-color: orange;}
+        50% {background-color: green; top: 500px;}
+        80%{background-color: blueviolet;}
+        to { top: 0px}
+    
+}
