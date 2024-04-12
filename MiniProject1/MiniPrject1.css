@@ -1,0 +1,9 @@
+img {
+    height: 200px;
+    width: 200px;
+}
+
+#formdiv {
+    border: 1px solid black;
+    width: 600px;
+}
