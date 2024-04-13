@@ -44,34 +44,21 @@
               src="user.png"
               alt="Your image here"
               class="rounded mx-auto d-block border rounded-pill"
+              id="outputimg"
             />
 
-            <select name="" id="" class="rounded-pill" name="ImageIcon">
-              <option value=""></option>
-              <option value=""></option>
-            </select>
+            <div>
+              <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)">
+              <!-- <label for="file" style="cursor: pointer;">Upload Image</label> -->
           </div>
+          
 
-          <!-- random number dice -->
+
+<!-- description -->
           <div>
-            <button onclick="RollDice()">Roll the Dice</button> <!-- get rolling dice image and then change per what number is rolled -->
-            <label for="" class="form-label"></label>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="50"
-              height="50"
-              fill="currentColor"
-              class="bi bi-dice-1-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3zm5 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
-              />
-            </svg>
-            <input type="number" name="diceValue" disabled>
-
-<div>
-
+            <label for="" class="form-label fs-3">Description: </label>
+            <input type="text" class="form-control text-center rounded-pill" id="desc" name="description">
+          </div>
         <!-- submit button -->
             <button type="submit">Submit</button>
         </div>
@@ -81,15 +68,19 @@
     </div>
 
     <template id="list-template">
-        <div class="tempfname"></div>
-        <div class="templname"></div>
-        <div class="tempimage"></div>
-        <div class="tempnumber"></div>
-
+      <div class="listitem container text-center card">
+      <div class="listnum"></div>
+        <h5 class="tempfname card-title"></h5>
+        <h5 class="templname card-title"></h5>
+        <img class="tempimage card-img-top"></img>
+        <div class="tempdesc"></div>
+        <button id="removeBtn" onclick="removecurrentitem(this)">Remove</button>
+        <button id="editBtn" onclick="getvalue(this)">Edit</button>
+      </div>
     </template>
 
     <h2>Created Characters</h2>
- <div id="characteroutput"></div>
+ <div id="characteroutput" class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4"></div>
 
 
     <script
