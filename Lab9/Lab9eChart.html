@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCharts</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- Prepare a DOM with a defined width and height for ECharts -->
+    <div id="main" style="width: 900px;height:600px;"></div>
+    <script type="text/javascript">
+        // Specify the configuration items and data for the chart
+
+        let options = {
+            title: { text: 'Fake Store Categories' },
+            xAxis: {
+                data: [],
+            },
+            yAxis: {},
+            series: [{
+                name: '# products',
+                type: 'bar',
+                data: [],
+                label: {
+                    show: true,
+                    position: 'top'
+                },
+            }],
+            
+
+        };
+        fetch('https://fakestoreapi.com/products')
+            .then((response) => response.json())
+            .then((json) => {
+                json
+                console.log(json)
+
+                // create variables for tempoarary array for names and object for numbers
+                const tempArray = []
+                const itemnumbers = {}
+
+                // for each of the json objects get the category and push it to the temporary array 
+                for (const sortCategory of json) {
+                    tempArray.push(sortCategory.category)
+                    // console.log(sortCategory.category)
+                }
+
+                // get the items from the temporary array and put into an object so that if it does not exist it 
+                // adds it with a 1 and if it alread exists add +1 to the value 
+                tempArray.forEach(item => {
+                    itemnumbers[item] = (itemnumbers[item] || 0) + 1
+                })
+
+                // remove teh names from the objects and just get the numbers and put them into an array
+                let itemNumbObj = Object.values(itemnumbers)
+                console.log(itemNumbObj)
+
+                // add the numbers array to the options list 
+                options.series[0].data = (itemNumbObj)
+                console.log(options.series[0].data)
+                console.log(options)
+
+                // use set to sort the temp items array so that there are no duplicates 
+                const setArray = new Set(tempArray)
+                console.log(...setArray)
+                // push the array to the options list using the ... to make it a proper array and not a set anymore 
+                options.xAxis.data.push(...setArray)
+                console.log(options.xAxis.data)
+
+
+                // use this JSON to find and set correct option data for the chart
+            })
+            .then(() => {
+                // Display the chart
+                myChart.setOption(options);
+            })
+
+
+
+        // Initialise the echarts instance based on the prepared div
+        let myChart = echarts.init(document.getElementById('main'));
+    </script>
+</body>
+
+</html>
