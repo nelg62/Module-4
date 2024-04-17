@@ -1,8 +1,13 @@
+// set variable Form for the form data
 const form = document.querySelector('form');
 
+// object for premade characters (to use later?)
 const premadeCharacters = {}
 
+// manual iD number as I am not getting itens at this stage I do not need to get a length of items for the id yet
 let itmlgth = 1
+
+// class for creating the character 
 class Character {
     constructor(id, first, last, img, desc) {
         this.id = id
@@ -13,17 +18,19 @@ class Character {
     }
 }
 
+// array for storing the new character
 const newCharacter = []
 
+// get form data on submit and prevent default 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-
+// get the formdata form the form and assign to a variable formData
     const formData = new FormData(form);
 
 
 
-
+// set formdata to the template via class names 
     const template = document.getElementById('list-template').content.cloneNode(true)
 
     template.querySelector('.listnum').innerHTML += itmlgth
@@ -33,16 +40,17 @@ form.addEventListener('submit', (e) => {
     template.querySelector('.tempdesc').innerHTML = formData.get('description')
     template.querySelector('.listitem').setAttribute("id", `item${itmlgth}`)
     
-        
+        // push template to the div with id caracteroutput so that it can be displaed 
     document.querySelector("#characteroutput").appendChild(template)
 
+    // add the new character to the array newCharacter 
     newCharacter.push(new Character(itmlgth++, formData.get("FirstName"), formData.get("LastName"), formData.get("image").name, formData.get("description")))
         
 console.log(newCharacter)
 form.reset()
 })
 
-
+// function for when a file is uploaded it taked the url makes it readable and then displays the image 
 function loadFile(event) {
 document.getElementById('outputimg').src = URL.createObjectURL(event.target.files[0])
 }
