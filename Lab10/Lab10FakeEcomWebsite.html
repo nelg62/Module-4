@@ -14,14 +14,17 @@ xios.min.js"></script>
 </head>
 
 <body>
-<!-- dropdowntemplate -->
+    <!-- dropdowntemplate -->
     <template id="dropsort">
-        <option value="" class="dropdownOption"></option>
+        <select value="" class="dropdownOption">
+            <option value="all">All</option>
+        </select>
+
     </template>
     <!-- dropsown output select -->
-    <select name="" id="sortmenu">
-    
-    </select>
+    <div name="" id="sortmenu">
+
+    </div>
 
     <!-- card output div -->
     <div id="main" class="row row-cols-4"></div>
@@ -31,16 +34,14 @@ xios.min.js"></script>
         <div class="card col" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build
-                    on the card title and make up the bulk of the card's
-                    content.</p>
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
                 <p class="categorycard"></p>
                 <p class="cardid"></p>
                 <p class="cardprice"></p>
                 <p class="cardratingCount"></p>
                 <p class="cardratingRate"></p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="#" class="btn btn-primary">Add To Cart</a>
             </div>
         </div>
     </template>
