@@ -39,11 +39,12 @@ form.addEventListener("submit", (e) => {
     .content.cloneNode(true);
 
   // same as addtotemplat function byt ues formdata info
-
+// console.log("formData",formData.get('image').name)
+// console.log(document.getElementById("outputimg").src)
   template.querySelector(".listnum").innerHTML += itmlgth;
   template.querySelector(".tempfname").innerHTML = formData.get("FirstName");
   template.querySelector(".templname").innerHTML = formData.get("LastName");
-  template.querySelector(".tempimage").src = formData.get("image").name;
+  template.querySelector(".tempimage").src = document.getElementById("outputimg").src;
   template.querySelector(".tempdesc").innerHTML = formData.get("description");
   template.querySelector(".listitem").setAttribute("id", `item${itmlgth}`);
 
@@ -56,7 +57,8 @@ form.addEventListener("submit", (e) => {
       itmlgth++,
       formData.get("FirstName"),
       formData.get("LastName"),
-      formData.get("image").name,
+      // formData.get("image").name,
+      document.getElementById("outputimg").src,
       formData.get("description")
     )
   );
