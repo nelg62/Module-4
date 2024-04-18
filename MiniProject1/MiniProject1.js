@@ -14,16 +14,70 @@ class Character {
 
 // array for storing the new character
 const newCharacter = [
-  new Character(1, "Steve", "bob", "user.png", "description"),
-  new Character(2, "bob", "George", "user.png", "description"),
-  new Character(3, "Sally", "Yellow", "user.png", "description"),
+  new Character(
+    1,
+    "Kazuma",
+    "Kiryu",
+    "Kiryu_Y0.webp",
+    `"Kazuma Kiryu (Japanese: 桐生 一馬, Hepburn: Kiryū Kazuma) is a fictional character and the initial main protagonist of Sega's action-adventure beat 'em up Japanese role-playing game series Yakuza / Like a Dragon. He is popularly known as "the Dragon of Dojima" (堂島の龍, Dōjima no Ryū) due to the tattoo of a dragon on his back and him originally being a fearsome member of the yakuza group known as the Dojima Family, a subsidiary of the Tojo Clan."`
+  ),
+  new Character(
+    2,
+    "GIR",
+    "",
+    "Gir_mouth_open.webp",
+    `"GIR (G Information Retrieval Unit) He is the hyperactive robotic assistant of Zim and the closest thing the incompetent Irken has to a friend, having been constructed from scrap parts by the Almighty Tallest just before it was handed to Zim, instead of a regular SIR (Standard-issue Information Retrieval) Unit."`
+  ),
+  new Character(
+    3,
+    "Goro",
+    "Majima",
+    "yakuza-0-release-date-set-for-january-1469635416610.webp",
+    `"Goro Majima (Japanese: 真島 吾朗, Hepburn: Majima Gorō) is a major recurring character in Sega's Like a Dragon video game series, previously known as Yakuza outside of Japan. He is one of the main playable protagonists of Yakuza 0 and Yakuza: Dead Souls, as well as the Majima Saga of Yakuza Kiwami 2. Introduced as a member of the Tojo Clan and patriarch of its subsidiary group, the Majima Family as well as second-in-command of the Shimano Family, nicknamed "Mad Dog of Shimano""`
+  ),
+  new Character(
+    4,
+    "Zim",
+    "",
+    "Zim.yelling.svg",
+    `"Zim is a member of the alien Irken race and a former Irken Invader; however, since his actions usually lead to disaster (having nearly destroyed the Irken homeworld during Operation Impending Doom) his leaders, the Almighty Tallest, banished him to Foodcourtia. While there, however, Zim heard of Operation Impending Doom II, and - obviously not understanding the purpose of his previous exile - "quit being banished" and ventured to Conventia in the hope of getting an assignment. Chagrined, the Almighty Tallest sent him on a "secret mission" to Earth, in order to keep him occupied and away from the real Operation Impending Doom II."`
+  ),
+  new Character(
+    5,
+    "Patrick",
+    "Star",
+    "Patrick_Star.svg.png",
+    "Patrick is the ignorant but humorous best friend of SpongeBob SquarePants. He is portrayed as being an overweight pink starfish, who serves as the village idiot of the underwater city of Bikini Bottom."
+  ),
 ];
 
 // set the id number of the caracter from newcaracter array length
 let itmlgth = newCharacter.length + 1;
 console.log(itmlgth);
 
-// display characters in array to the template
+// fuction for adding / updating items to the template
+
+function addtotemplate() {
+  newCharacter.forEach((element) => {
+    console.log(element);
+
+    const template = document
+      .getElementById("list-template")
+      .content.cloneNode(true);
+
+    template.querySelector(".listnum").innerHTML += element.id;
+    template.querySelector(".tempfname").innerHTML = element.first;
+    template.querySelector(".templname").innerHTML = element.last;
+    template.querySelector(".tempimage").src = element.img;
+    template.querySelector(".tempdesc").innerHTML = element.desc;
+    template.querySelector(".listitem").setAttribute("id", `item${element.id}`);
+
+    // push template to the div with id caracteroutput so that it can be displaed
+    document.querySelector("#characteroutput").appendChild(template);
+  });
+}
+
+// display characters in array to the template call function
 addtotemplate();
 
 // get form data on submit and prevent default
@@ -39,12 +93,13 @@ form.addEventListener("submit", (e) => {
     .content.cloneNode(true);
 
   // same as addtotemplat function byt ues formdata info
-// console.log("formData",formData.get('image').name)
-// console.log(document.getElementById("outputimg").src)
+  // console.log("formData",formData.get('image').name)
+  // console.log(document.getElementById("outputimg").src)
   template.querySelector(".listnum").innerHTML += itmlgth;
   template.querySelector(".tempfname").innerHTML = formData.get("FirstName");
   template.querySelector(".templname").innerHTML = formData.get("LastName");
-  template.querySelector(".tempimage").src = document.getElementById("outputimg").src;
+  template.querySelector(".tempimage").src =
+    document.getElementById("outputimg").src;
   template.querySelector(".tempdesc").innerHTML = formData.get("description");
   template.querySelector(".listitem").setAttribute("id", `item${itmlgth}`);
 
@@ -74,6 +129,7 @@ function loadFile(event) {
   );
 }
 
+// function for removing Character card
 function removecurrentitem(e) {
   // find current position in array newpeople using the value of list number and id from array and checking if they are the same
   let currentPosition = newCharacter.findIndex(
@@ -85,6 +141,7 @@ function removecurrentitem(e) {
   e.parentNode.parentNode.removeChild(e.parentNode);
 }
 
+// edit button function
 function getvalue(e) {
   // set variavble for the parent node of this button
   let parentDiv = e.parentNode;
@@ -94,12 +151,12 @@ function getvalue(e) {
   // use the item id to check the newpeople array and find the index location of the number
   let itemIndex = newCharacter.findIndex((item) => item.id === itemId);
 
-  // store the current values for first and last name in temp variables
+  // store the current values for first and last name and description in temp variables
   let originalFirstName = newCharacter[itemIndex].first;
   let origionalLastName = newCharacter[itemIndex].last;
   let origionalDesc = newCharacter[itemIndex].desc;
 
-  // change the text on the template item to a input textbox wiht the current value and an id
+  // change the text on the template item to a input textbox wiht the current value and an id got from id number
   parentDiv.querySelector(
     ".tempfname"
   ).innerHTML = `<input type="text" value="${originalFirstName}" id="editFirstName${itemId}"></input>`;
@@ -147,6 +204,7 @@ function saveValue(itemId) {
   parentDiv.querySelector("#editBtn").setAttribute("onclick", "getvalue(this)");
 }
 
+// function sorting A-Z button
 function sortfun() {
   newCharacter.sort((a, b) => {
     const aname = a.first.toLowerCase();
@@ -172,6 +230,7 @@ function sortfun() {
   document.getElementById("sortbtn").innerHTML = "Z-A";
 }
 
+// function sorting Z-A button
 function sortfunrev() {
   newCharacter.sort((a, b) => {
     const aname = a.first.toLowerCase();
@@ -197,29 +256,11 @@ function sortfunrev() {
   document.getElementById("sortbtn").innerHTML = "A-Z";
 }
 
-function addtotemplate() {
-  newCharacter.forEach((element) => {
-    console.log(element);
-
-    const template = document
-      .getElementById("list-template")
-      .content.cloneNode(true);
-
-    template.querySelector(".listnum").innerHTML += element.id;
-    template.querySelector(".tempfname").innerHTML = element.first;
-    template.querySelector(".templname").innerHTML = element.last;
-    template.querySelector(".tempimage").src = element.img;
-    template.querySelector(".tempdesc").innerHTML = element.desc;
-    template.querySelector(".listitem").setAttribute("id", `item${element.id}`);
-
-    // push template to the div with id caracteroutput so that it can be displaed
-    document.querySelector("#characteroutput").appendChild(template);
-  });
-}
-
+// event listener for search bar
 document.getElementById("searchBar").addEventListener("input", function () {
   const searchingfor = this.value.toLowerCase();
 
+  // filter newcharacter array and check first name last name and description set to a variable and then check if the seach value includes what is searched for
   const filtercaracter = newCharacter.filter((character) => {
     const alltext = `${character.first.toLowerCase()} ${character.last.toLowerCase()} ${character.desc.toLowerCase()}`;
     return alltext.includes(searchingfor);
@@ -227,6 +268,7 @@ document.getElementById("searchBar").addEventListener("input", function () {
 
   document.getElementById("characteroutput").innerHTML = "";
 
+  // sort and display cards by what is search in the search bar by what first name last name and description contains the searchbar value
   filtercaracter.forEach((character) => {
     const template = document
       .getElementById("list-template")
