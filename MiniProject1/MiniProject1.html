@@ -25,7 +25,7 @@
             <input
               type="text"
               class="form-control text-center rounded-pill"
-              id="fname" name="FirstName"
+              id="fname" name="FirstName" required
             />
 
             <!-- Last Name -->
@@ -33,7 +33,7 @@
             <input
               type="text"
               class="form-control text-center rounded-pill"
-              id="lname" name="LastName"
+              id="lname" name="LastName" required
             />
           </div>
 
@@ -56,7 +56,7 @@
 <!-- description -->
           <div>
             <label for="" class="form-label fs-3">Description: </label>
-            <input type="text" class="form-control text-center rounded-pill" id="desc" name="description">
+            <input type="text" class="form-control text-center rounded-pill" id="desc" name="description" required>
           </div>
         <!-- submit button -->
             <button type="submit">Submit</button>
@@ -66,20 +66,30 @@
       </form>
     </div>
 
+    <div class="container text-center mt-3">
+    <!-- sort A-Z Z-A -->
+    <label for="">Sort: <button type="button" id="sortbtn" onclick="sortfun()">A-Z</button></label>
+    <!-- search -->
+    <label for="">Search: <input type="search" id="searchBar"></label>
+  </div>
+
+
     <!-- template -->
     <template id="list-template">
       <div class="listitem container text-center card border rounded bg-primary-subtle border-primary-subtle">
       <div class="listnum"></div>
         <h5 class="tempfname card-title"></h5>
         <h5 class="templname card-title"></h5>
-        <img class="tempimage card-img-top"></img>
+        <img class="tempimage card-img-top img-fluid"></img>
         <div class="tempdesc"></div>
         <button id="removeBtn" onclick="removecurrentitem(this)">Remove</button>
         <button id="editBtn" onclick="getvalue(this)">Edit</button>
       </div>
     </template>
 
+    <div class="text-center m-3">
     <h2>Created Characters</h2>
+  </div>
     <!-- output of card -->
  <div id="characteroutput" class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4"></div>
 

@@ -1,12 +1,6 @@
 // set variable Form for the form data
 const form = document.querySelector('form');
 
-// object for premade characters (to use later?)
-const premadeCharacters = {}
-
-// manual iD number as I am not getting itens at this stage I do not need to get a length of items for the id yet
-let itmlgth = 1
-
 // class for creating the character 
 class Character {
     constructor(id, first, last, img, desc) {
@@ -18,19 +12,30 @@ class Character {
     }
 }
 
+
 // array for storing the new character
-const newCharacter = []
+const newCharacter = [
+    new Character(1, "Steve", "bob", "user.png", "description"),
+    new Character(2, "bob", "George", "user.png", "description"),
+    new Character(3, "Sally", "Yellow", "user.png", "description")
+]
+
+let itmlgth = newCharacter.length + 1
+console.log(itmlgth)
+
+addtotemplate()
+
 
 // get form data on submit and prevent default 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-// get the formdata form the form and assign to a variable formData
+    // get the formdata form the form and assign to a variable formData
     const formData = new FormData(form);
 
 
 
-// set formdata to the template via class names 
+    // set formdata to the template via class names 
     const template = document.getElementById('list-template').content.cloneNode(true)
 
     template.querySelector('.listnum').innerHTML += itmlgth
@@ -39,20 +44,20 @@ form.addEventListener('submit', (e) => {
     template.querySelector('.tempimage').src = formData.get('image').name
     template.querySelector('.tempdesc').innerHTML = formData.get('description')
     template.querySelector('.listitem').setAttribute("id", `item${itmlgth}`)
-    
-        // push template to the div with id caracteroutput so that it can be displaed 
+
+    // push template to the div with id caracteroutput so that it can be displaed 
     document.querySelector("#characteroutput").appendChild(template)
 
     // add the new character to the array newCharacter 
     newCharacter.push(new Character(itmlgth++, formData.get("FirstName"), formData.get("LastName"), formData.get("image").name, formData.get("description")))
-        
-console.log(newCharacter)
-form.reset()
+
+    console.log(newCharacter)
+    form.reset()
 })
 
 // function for when a file is uploaded it taked the url makes it readable and then displays the image 
 function loadFile(event) {
-document.getElementById('outputimg').src = URL.createObjectURL(event.target.files[0])
+    document.getElementById('outputimg').src = URL.createObjectURL(event.target.files[0])
 }
 
 
@@ -121,3 +126,101 @@ function saveValue(itemId) {
     // change onclick back to getvalue(this)
     parentDiv.querySelector('#editBtn').setAttribute("onclick", "getvalue(this)")
 }
+
+
+
+function sortfun() {
+
+    newCharacter.sort((a, b) => {
+        const aname = a.first.toLowerCase()
+        const bname = b.first.toLowerCase()
+        console.log(aname)
+        console.log(bname)
+
+        if (aname < bname) {
+            return -1
+        } else if (aname > bname) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+
+    console.log(newCharacter)
+    document.getElementById('characteroutput').innerHTML = ""
+
+    addtotemplate()
+
+    document.getElementById('sortbtn').setAttribute('onclick', "sortfunrev()")
+    document.getElementById('sortbtn').innerHTML = "Z-A"
+}
+
+function sortfunrev() {
+    newCharacter.sort((a, b) => {
+        const aname = a.first.toLowerCase()
+        const bname = b.first.toLowerCase()
+        console.log(aname)
+        console.log(bname)
+
+        if (bname < aname) {
+            return -1
+        } else if (bname > aname) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+
+    console.log(newCharacter)
+    document.getElementById('characteroutput').innerHTML = ""
+
+    addtotemplate()
+
+    document.getElementById('sortbtn').setAttribute('onclick', "sortfun()")
+    document.getElementById('sortbtn').innerHTML = "A-Z"
+}
+
+
+function addtotemplate() {
+    newCharacter.forEach(element => {
+        console.log(element)
+
+        const template = document.getElementById('list-template').content.cloneNode(true)
+
+        template.querySelector('.listnum').innerHTML += element.id
+        template.querySelector('.tempfname').innerHTML = element.first
+        template.querySelector('.templname').innerHTML = element.last
+        template.querySelector('.tempimage').src = element.img
+        template.querySelector('.tempdesc').innerHTML = element.desc
+        template.querySelector('.listitem').setAttribute("id", `item${element.id}`)
+
+        // push template to the div with id caracteroutput so that it can be displaed 
+        document.querySelector("#characteroutput").appendChild(template)
+    });
+}
+
+document.getElementById('searchBar').addEventListener('input', function () {
+
+    const searchingfor = this.value.toLowerCase()
+
+    const filtercaracter = newCharacter.filter(character => {
+        const alltext = `${character.first.toLowerCase()} ${character.last.toLowerCase()} ${character.desc.toLowerCase()}`
+        return alltext.includes(searchingfor)
+    })
+
+    document.getElementById('characteroutput').innerHTML = ""
+
+    filtercaracter.forEach(character => {
+        const template = document.getElementById('list-template').content.cloneNode(true)
+
+        template.querySelector('.listnum').innerHTML += character.id
+        template.querySelector('.tempfname').innerHTML = character.first
+        template.querySelector('.templname').innerHTML = character.last
+        template.querySelector('.tempimage').src = character.img
+        template.querySelector('.tempdesc').innerHTML = character.desc
+        template.querySelector('.listitem').setAttribute("id", `item${character.id}`)
+
+        // push template to the div with id caracteroutput so that it can be displaed 
+        document.querySelector("#characteroutput").appendChild(template)
+    })
+})
