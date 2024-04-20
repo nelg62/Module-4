@@ -1,3 +1,9 @@
+// TODO ---  remove duplicate functions e.g try to make the form and the add to template on function as most elements are similar
+
+// for the sorting a-z try to make into 1 function and use booliant true or false
+
+//  for elements use flex display so that elements stick to the left rather then have space inbetween whent there are less then 4 items
+
 // set variable Form for the form data
 const form = document.querySelector("form");
 
@@ -57,8 +63,9 @@ console.log(itmlgth);
 
 // fuction for adding / updating items to the template
 
-function addtotemplate() {
-  newCharacter.forEach((element) => {
+function addtotemplate(input) {
+  document.getElementById("characteroutput").innerHTML = "";
+  input.forEach((element) => {
     console.log(element);
 
     const template = document
@@ -78,7 +85,7 @@ function addtotemplate() {
 }
 
 // display characters in array to the template call function
-addtotemplate();
+addtotemplate(newCharacter);
 
 // get form data on submit and prevent default
 form.addEventListener("submit", (e) => {
@@ -88,23 +95,23 @@ form.addEventListener("submit", (e) => {
   const formData = new FormData(form);
 
   // set formdata to the template via class names
-  const template = document
-    .getElementById("list-template")
-    .content.cloneNode(true);
+  //   const template = document
+  //     .getElementById("list-template")
+  //     .content.cloneNode(true);
 
-  // same as addtotemplat function byt ues formdata info
-  // console.log("formData",formData.get('image').name)
-  // console.log(document.getElementById("outputimg").src)
-  template.querySelector(".listnum").innerHTML += itmlgth;
-  template.querySelector(".tempfname").innerHTML = formData.get("FirstName");
-  template.querySelector(".templname").innerHTML = formData.get("LastName");
-  template.querySelector(".tempimage").src =
-    document.getElementById("outputimg").src;
-  template.querySelector(".tempdesc").innerHTML = formData.get("description");
-  template.querySelector(".listitem").setAttribute("id", `item${itmlgth}`);
+  //   // same as addtotemplat function byt ues formdata info
+  //   // console.log("formData",formData.get('image').name)
+  //   // console.log(document.getElementById("outputimg").src)
+  //   template.querySelector(".listnum").innerHTML += itmlgth;
+  //   template.querySelector(".tempfname").innerHTML = formData.get("FirstName");
+  //   template.querySelector(".templname").innerHTML = formData.get("LastName");
+  //   template.querySelector(".tempimage").src =
+  //     document.getElementById("outputimg").src;
+  //   template.querySelector(".tempdesc").innerHTML = formData.get("description");
+  //   template.querySelector(".listitem").setAttribute("id", `item${itmlgth}`);
 
-  // push template to the div with id caracteroutput so that it can be displaed
-  document.querySelector("#characteroutput").appendChild(template);
+  //   // push template to the div with id caracteroutput so that it can be displaed
+  //   document.querySelector("#characteroutput").appendChild(template);
 
   // add the new character to the array newCharacter
   newCharacter.push(
@@ -118,6 +125,7 @@ form.addEventListener("submit", (e) => {
     )
   );
 
+  addtotemplate(newCharacter);
   console.log(newCharacter);
   form.reset();
 });
@@ -204,57 +212,80 @@ function saveValue(itemId) {
   parentDiv.querySelector("#editBtn").setAttribute("onclick", "getvalue(this)");
 }
 
+let bool = false;
+
 // function sorting A-Z button
 function sortfun() {
-  newCharacter.sort((a, b) => {
+  const sortedResult = newCharacter.sort((a, b) => {
+   
     const aname = a.first.toLowerCase();
     const bname = b.first.toLowerCase();
-    console.log(aname);
-    console.log(bname);
 
-    if (aname < bname) {
-      return -1;
-    } else if (aname > bname) {
-      return 1;
-    } else {
-      return 0;
-    }
+    return aname === bname ? 0 : aname ? -1 : 1;
+    // console.log("aname",aname)
+    // console.log("bname",bname)
+
+    // if (aname < bname) {
+    //     document.getElementById("sortbtn").innerHTML = "Z-A";
+    //     return console.log("value",(aname === bname) ? 0 : aname ? -1 : 1)
+    // }else {
+    //     document.getElementById("sortbtn").innerHTML = "A-Z";
+    //     return console.log("value1",(bname === aname) ? 0 : bname ? -1 : 1)
+    // }
   });
 
-  console.log(newCharacter);
+  const result = bool ? newCharacter : newCharacter.reverse();
+
+  //   newCharacter.sort((a, b) => {
+  //     const aname = a.first.toLowerCase();
+  //     const bname = b.first.toLowerCase();
+  //     console.log(aname);
+  //     console.log(bname);
+
+  //     if (aname < bname) {
+  //       return -1;
+  //     } else if (aname > bname) {
+  //       return 1;
+  //     } else {
+  //       return 0;
+  //     }
+  //   });
+
+  console.log(result);
   document.getElementById("characteroutput").innerHTML = "";
 
-  addtotemplate();
+  bool = !bool;
+  addtotemplate(result);
 
-  document.getElementById("sortbtn").setAttribute("onclick", "sortfunrev()");
-  document.getElementById("sortbtn").innerHTML = "Z-A";
+  //   document.getElementById("sortbtn").setAttribute("onclick", "sortfunrev()");
+  //   document.getElementById("sortbtn").innerHTML = "Z-A";
 }
 
 // function sorting Z-A button
-function sortfunrev() {
-  newCharacter.sort((a, b) => {
-    const aname = a.first.toLowerCase();
-    const bname = b.first.toLowerCase();
-    console.log(aname);
-    console.log(bname);
+// function sortfunrev() {
+//   newCharacter.sort((a, b) => {
+//     const aname = a.first.toLowerCase();
+//     const bname = b.first.toLowerCase();
+//     console.log(aname);
+//     console.log(bname);
 
-    if (bname < aname) {
-      return -1;
-    } else if (bname > aname) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
+//     if (bname < aname) {
+//       return -1;
+//     } else if (bname > aname) {
+//       return 1;
+//     } else {
+//       return 0;
+//     }
+//   });
 
-  console.log(newCharacter);
-  document.getElementById("characteroutput").innerHTML = "";
+//   console.log(newCharacter);
+//   document.getElementById("characteroutput").innerHTML = "";
 
-  addtotemplate();
+//   addtotemplate(newCharacter);
 
-  document.getElementById("sortbtn").setAttribute("onclick", "sortfun()");
-  document.getElementById("sortbtn").innerHTML = "A-Z";
-}
+//   document.getElementById("sortbtn").setAttribute("onclick", "sortfun()");
+//   document.getElementById("sortbtn").innerHTML = "A-Z";
+// }
 
 // event listener for search bar
 document.getElementById("searchBar").addEventListener("input", function () {
@@ -269,21 +300,22 @@ document.getElementById("searchBar").addEventListener("input", function () {
   document.getElementById("characteroutput").innerHTML = "";
 
   // sort and display cards by what is search in the search bar by what first name last name and description contains the searchbar value
-  filtercaracter.forEach((character) => {
-    const template = document
-      .getElementById("list-template")
-      .content.cloneNode(true);
+  addtotemplate(filtercaracter);
+  //   filtercaracter.forEach((character) => {
+  //     const template = document
+  //       .getElementById("list-template")
+  //       .content.cloneNode(true);
 
-    template.querySelector(".listnum").innerHTML += character.id;
-    template.querySelector(".tempfname").innerHTML = character.first;
-    template.querySelector(".templname").innerHTML = character.last;
-    template.querySelector(".tempimage").src = character.img;
-    template.querySelector(".tempdesc").innerHTML = character.desc;
-    template
-      .querySelector(".listitem")
-      .setAttribute("id", `item${character.id}`);
+  //     template.querySelector(".listnum").innerHTML += character.id;
+  //     template.querySelector(".tempfname").innerHTML = character.first;
+  //     template.querySelector(".templname").innerHTML = character.last;
+  //     template.querySelector(".tempimage").src = character.img;
+  //     template.querySelector(".tempdesc").innerHTML = character.desc;
+  //     template
+  //       .querySelector(".listitem")
+  //       .setAttribute("id", `item${character.id}`);
 
-    // push template to the div with id caracteroutput so that it can be displaed
-    document.querySelector("#characteroutput").appendChild(template);
-  });
+  //     // push template to the div with id caracteroutput so that it can be displaed
+  //     document.querySelector("#characteroutput").appendChild(template);
+  //   });
 });
