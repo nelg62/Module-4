@@ -212,80 +212,59 @@ function saveValue(itemId) {
   parentDiv.querySelector("#editBtn").setAttribute("onclick", "getvalue(this)");
 }
 
-let bool = false;
+// let bool = false;
 
 // function sorting A-Z button
 function sortfun() {
-  const sortedResult = newCharacter.sort((a, b) => {
-   
+  newCharacter.sort((a, b) => {
     const aname = a.first.toLowerCase();
     const bname = b.first.toLowerCase();
+    console.log(aname);
+    console.log(bname);
 
-    return aname === bname ? 0 : aname ? -1 : 1;
-    // console.log("aname",aname)
-    // console.log("bname",bname)
-
-    // if (aname < bname) {
-    //     document.getElementById("sortbtn").innerHTML = "Z-A";
-    //     return console.log("value",(aname === bname) ? 0 : aname ? -1 : 1)
-    // }else {
-    //     document.getElementById("sortbtn").innerHTML = "A-Z";
-    //     return console.log("value1",(bname === aname) ? 0 : bname ? -1 : 1)
-    // }
+    if (aname < bname) {
+      return -1;
+    } else if (aname > bname) {
+      return 1;
+    } else {
+      return 0;
+    }
   });
 
-  const result = bool ? newCharacter : newCharacter.reverse();
-
-  //   newCharacter.sort((a, b) => {
-  //     const aname = a.first.toLowerCase();
-  //     const bname = b.first.toLowerCase();
-  //     console.log(aname);
-  //     console.log(bname);
-
-  //     if (aname < bname) {
-  //       return -1;
-  //     } else if (aname > bname) {
-  //       return 1;
-  //     } else {
-  //       return 0;
-  //     }
-  //   });
-
-  console.log(result);
+  console.log(newCharacter);
   document.getElementById("characteroutput").innerHTML = "";
 
-  bool = !bool;
-  addtotemplate(result);
+  addtotemplate(newCharacter);
 
-  //   document.getElementById("sortbtn").setAttribute("onclick", "sortfunrev()");
-  //   document.getElementById("sortbtn").innerHTML = "Z-A";
+  document.getElementById("sortbtn").setAttribute("onclick", "sortfunrev()");
+  document.getElementById("sortbtn").innerHTML = "Z-A";
 }
 
 // function sorting Z-A button
-// function sortfunrev() {
-//   newCharacter.sort((a, b) => {
-//     const aname = a.first.toLowerCase();
-//     const bname = b.first.toLowerCase();
-//     console.log(aname);
-//     console.log(bname);
+function sortfunrev() {
+  newCharacter.sort((a, b) => {
+    const aname = a.first.toLowerCase();
+    const bname = b.first.toLowerCase();
+    console.log(aname);
+    console.log(bname);
 
-//     if (bname < aname) {
-//       return -1;
-//     } else if (bname > aname) {
-//       return 1;
-//     } else {
-//       return 0;
-//     }
-//   });
+    if (bname < aname) {
+      return -1;
+    } else if (bname > aname) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 
-//   console.log(newCharacter);
-//   document.getElementById("characteroutput").innerHTML = "";
+  console.log(newCharacter);
+  document.getElementById("characteroutput").innerHTML = "";
 
-//   addtotemplate(newCharacter);
+  addtotemplate(newCharacter);
 
-//   document.getElementById("sortbtn").setAttribute("onclick", "sortfun()");
-//   document.getElementById("sortbtn").innerHTML = "A-Z";
-// }
+  document.getElementById("sortbtn").setAttribute("onclick", "sortfun()");
+  document.getElementById("sortbtn").innerHTML = "A-Z";
+}
 
 // event listener for search bar
 document.getElementById("searchBar").addEventListener("input", function () {
