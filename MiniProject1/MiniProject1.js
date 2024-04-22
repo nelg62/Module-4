@@ -212,16 +212,14 @@ function saveValue(itemId) {
   parentDiv.querySelector("#editBtn").setAttribute("onclick", "getvalue(this)");
 }
 
-// let bool = false;
 
+// kingley assistance A-Z solution
+let bool = false;
 // function sorting A-Z button
 function sortfun() {
   newCharacter.sort((a, b) => {
     const aname = a.first.toLowerCase();
     const bname = b.first.toLowerCase();
-    console.log(aname);
-    console.log(bname);
-
     if (aname < bname) {
       return -1;
     } else if (aname > bname) {
@@ -230,41 +228,68 @@ function sortfun() {
       return 0;
     }
   });
-
-  console.log(newCharacter);
-  document.getElementById("characteroutput").innerHTML = "";
-
-  addtotemplate(newCharacter);
-
-  document.getElementById("sortbtn").setAttribute("onclick", "sortfunrev()");
-  document.getElementById("sortbtn").innerHTML = "Z-A";
+  const sortResult = bool ? newCharacter : newCharacter.reverse();
+  document.getElementById('characteroutput').innerHTML = "";
+  document.getElementById('sortbtn').innerHTML = bool ? 'A-Z' : 'Z-A';
+  addtotemplate(sortResult);
+  bool = !bool;
 }
 
-// function sorting Z-A button
-function sortfunrev() {
-  newCharacter.sort((a, b) => {
-    const aname = a.first.toLowerCase();
-    const bname = b.first.toLowerCase();
-    console.log(aname);
-    console.log(bname);
 
-    if (bname < aname) {
-      return -1;
-    } else if (bname > aname) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
 
-  console.log(newCharacter);
-  document.getElementById("characteroutput").innerHTML = "";
+// my A-Z solution
 
-  addtotemplate(newCharacter);
+// // function sorting A-Z button
+// function sortfun() {
+//   newCharacter.sort((a, b) => {
+//     const aname = a.first.toLowerCase();
+//     const bname = b.first.toLowerCase();
+//     console.log(aname);
+//     console.log(bname);
 
-  document.getElementById("sortbtn").setAttribute("onclick", "sortfun()");
-  document.getElementById("sortbtn").innerHTML = "A-Z";
-}
+//     if (aname < bname) {
+//       return -1;
+//     } else if (aname > bname) {
+//       return 1;
+//     } else {
+//       return 0;
+//     }
+//   });
+
+//   console.log(newCharacter);
+//   document.getElementById("characteroutput").innerHTML = "";
+
+//   addtotemplate(newCharacter);
+
+//   document.getElementById("sortbtn").setAttribute("onclick", "sortfunrev()");
+//   document.getElementById("sortbtn").innerHTML = "Z-A";
+// }
+
+// // function sorting Z-A button
+// function sortfunrev() {
+//   newCharacter.sort((a, b) => {
+//     const aname = a.first.toLowerCase();
+//     const bname = b.first.toLowerCase();
+//     console.log(aname);
+//     console.log(bname);
+
+//     if (bname < aname) {
+//       return -1;
+//     } else if (bname > aname) {
+//       return 1;
+//     } else {
+//       return 0;
+//     }
+//   });
+
+//   console.log(newCharacter);
+//   document.getElementById("characteroutput").innerHTML = "";
+
+//   addtotemplate(newCharacter);
+
+//   document.getElementById("sortbtn").setAttribute("onclick", "sortfun()");
+//   document.getElementById("sortbtn").innerHTML = "A-Z";
+// }
 
 // event listener for search bar
 document.getElementById("searchBar").addEventListener("input", function () {
